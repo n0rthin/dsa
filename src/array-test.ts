@@ -1,4 +1,3 @@
-
 const a: number[] = [];
 
 function time(fn: () => void): number {
@@ -11,6 +10,10 @@ function unshift(number: number) {
     for (let i = 0; i < number; ++i) {
         a.unshift(Math.random());
     }
+}
+
+function splice() {
+    a.splice(0, a.length);
 }
 
 function shift(number: number) {
@@ -32,45 +35,60 @@ function pop(number: number) {
 }
 
 function get(idx: number) {
-    return function() {
+    return function () {
         return a[idx];
     };
 }
 
 function push_arr(count: number) {
-    return function() {
+    return function () {
         push(count);
     };
 }
 
 function pop_arr(count: number) {
-    return function() {
+    return function () {
         pop(count);
     };
 }
 
 function unshift_arr(count: number) {
-    return function() {
+    return function () {
         unshift(count);
     };
 }
 
 function shift_arr(count: number) {
-    return function() {
+    return function () {
         shift(count);
     };
 }
 
+function splice_arr() {
+    return function () {
+        splice();
+    };
+}
+
 const tests = [10, 100, 1000, 10000, 100000, 1_000_000, 10_000_000];
+
+console.log("splice");
+tests.forEach((t) => {
+    a.length = 0;
+    push(t);
+
+    console.log(t, time(splice_arr()));
+});
+
 console.log("Testing get");
-tests.forEach(t => {
+tests.forEach((t) => {
     a.length = 0;
     push(t);
     console.log(t, time(get(t - 1)));
 });
 
 console.log("push");
-tests.forEach(t => {
+tests.forEach((t) => {
     a.length = 0;
     push(t);
 
@@ -78,7 +96,7 @@ tests.forEach(t => {
 });
 
 console.log("pop");
-tests.forEach(t => {
+tests.forEach((t) => {
     a.length = 0;
     push(t);
 
@@ -86,7 +104,7 @@ tests.forEach(t => {
 });
 
 console.log("unshift");
-tests.forEach(t => {
+tests.forEach((t) => {
     a.length = 0;
     push(t);
 
@@ -94,7 +112,7 @@ tests.forEach(t => {
 });
 
 console.log("shift");
-tests.forEach(t => {
+tests.forEach((t) => {
     a.length = 0;
     push(t);
 
